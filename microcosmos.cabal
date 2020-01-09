@@ -1,0 +1,43 @@
+name:                microcosmos
+version:             0.1.0.0
+synopsis:            Tiny file-driven blogging platform
+-- description:
+homepage:            github.com/dixonary/microcosmos
+license:             BSD3
+license-file:        LICENSE
+author:              Alex Dixon
+maintainer:          alex@dixonary.co.uk
+-- copyright:
+category:            Web
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.10
+
+executable microcosmos
+  main-is:             Main.hs
+  -- other-modules:
+  -- other-extensions:
+  extensions:
+    OverloadedStrings
+    , RecordWildCards
+    , MultiWayIf
+    , TemplateHaskell
+
+  build-depends:
+    base >=4.12 && <4.13
+    , containers
+    , wai
+    , warp
+    , http-types
+    , bytestring
+    , filepath
+    , directory
+    , time
+    , file-embed
+    , friendly-time
+    , split
+    , process
+    , text
+
+  hs-source-dirs:      src
+  default-language:    Haskell2010

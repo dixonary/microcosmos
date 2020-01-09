@@ -1,0 +1,6 @@
+body[data-title="Home"] .date,
+body[data-title="Home"] .title,
+body[data-title="Home"] .topBar
+{
+    display:none;
+}
