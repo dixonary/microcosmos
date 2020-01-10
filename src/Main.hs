@@ -119,9 +119,12 @@ app' pathSegments respond = do
     unsafe     <- not <$> fullPath `isIn` cwd
     let root   = pathSegments == [] || pathSegments == [""]
         static = head pathSegments == "static"
+        fav    = head pathSegments == "favicon.ico"
 
     if | unsafe    -> respond naughty
        | root      -> app' ["home"] respond
+       | fav       -> respond =<< fromMaybe notFound
+                              <$> respondStatic "static/favicon.ico"
        | static    -> respond =<< fromMaybe notFound
                               <$> respondStatic fullPath
        | otherwise -> respond =<< fromMaybe notFound
@@ -207,6 +210,7 @@ respondDir path = do
         postListings = zipWith listPost
                         (dropExtension . dropRoot <$> postPaths) posts
         sortedPostListings = fmap snd
+                           $ List.reverse
                            $ List.sortOn fst
                            $ zip (date <$> posts) postListings
         listing = printf
@@ -324,7 +328,8 @@ parsePost fp = do
 
         noPreamble = (Nothing, fileContent)
 
-        readTime = parseTimeM True defaultTimeLocale "%Y-%-m-%-d"
+        readTime x = parseTimeM True defaultTimeLocale "%Y-%-m-%-d" x
+                <|> parseTimeM True defaultTimeLocale "%Y-%-m-%-d %H:%M" x
 
         (preamble, body) = fromMaybe noPreamble $ do
             (first, rest) <- List.uncons $ dropWhile isBlank fileLines
