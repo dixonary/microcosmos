@@ -70,7 +70,7 @@ main :: IO ()
 main = do
     initialise
     port <- defaultIO 8080 $ read <$> getEnv "MC_PORT"
-    run 8080 app
+    run port app
 
 -- Generate all the default files and folders.
 initialise :: IO ()
