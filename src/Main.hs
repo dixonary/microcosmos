@@ -69,6 +69,7 @@ data PostData = Post
 main :: IO ()
 main = do
     initialise
+    port <- defaultIO 8080 $ read <$> getEnv "MC_PORT"
     run 8080 app
 
 -- Generate all the default files and folders.
