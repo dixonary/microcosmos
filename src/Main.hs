@@ -308,6 +308,9 @@ renderContent raw = do
 
     rendered <- hGetContents pandocOut
 
+    hSetEncoding pandocIn utf8 
+    hSetEncoding pandocOut utf8
+
     hPutStrLn pandocIn raw
     hClose pandocIn
 
