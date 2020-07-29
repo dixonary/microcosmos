@@ -305,11 +305,11 @@ fillTemplate templateName params = do
 renderContent :: String -> IO String
 renderContent raw = do
     (pandocIn, pandocOut, _, _) <- runInteractiveCommand "pandoc -t html"
-
     rendered <- hGetContents pandocOut
 
     hPutStrLn pandocIn raw
     hClose pandocIn
+    hClose pandocOut
 
     return rendered
 
