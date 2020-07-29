@@ -307,6 +307,9 @@ renderContent raw = do
     (pandocIn, pandocOut, _, _) <- runInteractiveCommand "pandoc -t html"
     rendered <- hGetContents pandocOut
 
+    hSetEncoding pandocIn utf8 
+    hSetEncoding pandocOut utf8
+
     hPutStrLn pandocIn raw
     hClose pandocIn
     hClose pandocOut
